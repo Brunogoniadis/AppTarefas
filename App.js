@@ -119,12 +119,21 @@ export default function App() {
   
  }
 
+ function cancelEdit(){
+  setKey('');
+  setNewTask('');
+  Keyboard.dismiss();
+}
+
  if(!user){
   return <Login changeStatus={ (user) => setUser(user) }/>
  }
 
  return (
    <SafeAreaView style={styles.container}>
+    
+    
+    
     
     <View style={styles.containerTask}>
       <TextInput
@@ -138,6 +147,20 @@ export default function App() {
         <Feather name="file-plus" color="#FFF" size={20}/>
       </TouchableOpacity>
     </View>
+    { key.length > 0 && (
+      <View style={{ flexDirection: 'row-reverse', marginBottom: 8, }}>
+        <TouchableOpacity onPress={cancelEdit} >
+          <View style={styles.buttonAdd}>
+          <Feather name="x-square" color="#FFF" size={20}/>
+          </View>
+          
+        </TouchableOpacity>
+        <Text style={{ marginLeft: 5, color: '#FF0000', textAlignVertical:'center',
+        textAlign:'left' }}>
+          Você está editando uma tarefa!
+        </Text>
+      </View>
+    )}
 
     <FlatList
       data={tasks}
@@ -186,5 +209,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     alignItems: 'center'
-  }
+  },
 })
