@@ -10,6 +10,7 @@ import {
    Keyboard
   } from 'react-native';
 
+import Feather from 'react-native-vector-icons/Feather';
 import Login from './src/components/Login';
 import TaskList from './src/components/Tasklist';
 import firebase from './src/services/firebaseConnection';
@@ -134,7 +135,7 @@ export default function App() {
         ref={inputRef}
       />
       <TouchableOpacity style={styles.buttonAdd} onPress={handleAdd}>
-        <Text style={styles.text}>+</Text>
+        <Feather name="file-plus" color="#FFF" size={20}/>
       </TouchableOpacity>
     </View>
 
