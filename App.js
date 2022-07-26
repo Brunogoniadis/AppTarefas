@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
    View,
    Text, 
@@ -21,6 +21,35 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
+
+
+  useEffect(()=> {
+
+    function getUser(){
+      if(!user){
+        return;
+      }
+
+      firebase.database().ref('tarefas').child(user).once('value', (snapshot)=> {
+        setTasks([]);
+
+        snapshot?.forEach((childItem)=>{
+          let data= {
+            key: childItem.key,
+            nome: childItem.val().nome
+          }
+
+          setTasks(oldTask => [...oldTask, data])
+        })
+      })
+    }
+    
+    
+    getUser();
+
+  },[user])
+
+  
 
  function handleAdd(){
   if(newTask===''){
